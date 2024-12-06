@@ -1,0 +1,22 @@
+{
+  "view/Facturas.view.xml": 1733427566046,
+  "manifest.json": 1733432777406,
+  "controller/Facturas.controller.js": 1733427665514,
+  "controller/App.controller.js": 1733152979084,
+  "model/models.js": 1732891115954,
+  "Component.js": 1733142539264,
+  "Component-dbg.js": 1733142539264,
+  "Component.js.map": 1733432777547,
+  "controller/App-dbg.controller.js": 1733152979084,
+  "controller/App.controller.js.map": 1733432777545,
+  "model/models-dbg.js": 1732891115954,
+  "model/models.js.map": 1733432777546,
+  "controller/Facturas-dbg.controller.js": 1733427665514,
+  "controller/Facturas.controller.js.map": 1733432777564,
+  "Component-preload.js": 1733432777634,
+  "Component-preload.js.map": 1733432777634,
+  "i18n/i18n.properties": 1733342999056,
+  "view/App.view.xml": 1732891115958,
+  "css/style.css": 1733340988173,
+  "index.html": 1733432199796
+}

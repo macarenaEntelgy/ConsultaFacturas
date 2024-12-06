@@ -1,0 +1,35 @@
+/* Enter your custom styles here */
+.grossAmount {
+    font-size: 20px; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold; /* Opcional: para hacer el número en negrita */
+    margin-top: 10px;
+}
+
+.descripcion{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.objListAtribute{
+    margin-top: 10px;
+}
+
+.btn{
+    margin-left: 92%;
+}
+
+.customCenterAlign .sapMListTblCell {
+    text-align: center !important;
+}
+
+.sapUiSizeCompact .sapMListTblHighlightCol+.sapMListTblCell.sapMListTblHeaderCell .sapMColumnHeader{
+    background-color: gainsboro;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.sapMColumnHeader{
+    background-color: gainsboro;
+}

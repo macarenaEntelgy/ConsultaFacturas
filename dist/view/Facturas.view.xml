@@ -1,0 +1,175 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    controllerName="dev.facturas.controller.Facturas"
+    displayBlock="true">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Panel id="panel" headerText="{i18n>selectionScreen}">
+                <!--<Label
+                    id="labelShipName"
+                    labelFor="shipName"
+                    text="{i18n>shipName}"
+                    class="sapUiSmallMargin"/>
+                <Input
+                    id="shipName"
+                    width="200px"
+                    class="sapUiSmallMarginEnd"/>-->
+                <Label
+                    id="labelInvoiceNumber"
+                    labelFor="invoiceNumber"
+                    text="{i18n>invoiceNumber}"
+                    textAlign="Initial"
+                    class="sapUiSmallMargin"/>
+                <Input
+                    id="invoiceNumber"
+                    width="100px"
+                    textAlign="Initial"/>
+                <Label
+                    id="labelDate"
+                    text="{i18n>date}"
+                    class="sapUiSmallMargin"/>
+                <DatePicker
+                    id="dateFrom"
+                    textAlign="Initial"
+                    displayFormat="dd/MM/yyyy"
+                    valueFormat="yyyy-MM-dd"
+                    width="150px"
+                    placeholder="ej: 01/01/2024"/>
+                <Label
+                    id="labelDateTo"
+                    text="{i18n>dateTo}"
+                    class="sapUiSmallMargin"/>
+                <DatePicker
+                    id="dateTo"
+                    textAlign="Initial"
+                    displayFormat="dd/MM/yyyy"
+                    valueFormat="yyyy-MM-dd"
+                    width="150px"
+                    placeholder="ej: 01/01/2024"/>
+                <Label id="status"
+                        text="{i18n>status}"
+                        class="sapUiSmallMargin"
+                        />
+                <Select id="statusFilter" change="onStatusFilterChange" width="100px" >
+                    <items>
+                        <core:Item id="estado"    key="todos" text="Todos"/> <!-- Muestra todas las facturas -->
+                        <core:Item id="procesada" key="S"     text="Procesada" />
+                        <core:Item id="enProceso" key="W"     text="En Proceso" />
+                        <core:Item id="rechazada" key="E"     text="Rechazada" />
+                    </items>
+                </Select>
+                <Button
+                    id="btnFilter"
+                    text="{i18n>btnFilter}"
+                    icon="sap-icon://filter"
+                    press="onFilter"
+                    class="sapUiSmallMarginEnd"/>
+                <Button
+                    id="btnClearFilter"
+                    text="{i18n>btnClearFilter}"
+                    icon="sap-icon://clear-filter"
+                    press="onClearFilter"
+                    class="sapUiSmallMarginEnd"/>
+            </Panel>
+            <Panel id="list">
+                <HBox id="btn" class="btn">
+                    <Button id="ordenar" text="Ordenar" press="onOpenSortOptions" class="sapUiSmallMarginEnd"/>
+                </HBox>
+                <Table id="invoicesList"
+                       class="sapUiResponsiveMargin"
+                       width="auto"
+                       items="{/Datos_Extraidos}"
+                       enableBusyIndicator="true"
+                       growingThreshold="10"
+                       growingScrollToLoad="true"
+                    >
+                    <columns>
+                        <Column id="id" visible="false" class="columnColor">
+                            <header>
+                                <Text id="textId" text="ID"/>
+                            </header>
+                        </Column>
+                        <Column id="conPo" visible="false">
+                            <header>
+                                <Text id="textConPo" text="Con PO"/>
+                            </header>
+                        </Column>
+                        <Column id="cuit" visible="false">
+                            <header>
+                                <Text id="textCuit" text="CUIT"/>
+                            </header>
+                        </Column>
+                        <Column id="idArchivo" visible="false" >
+                            <header>
+                                <Text id="textIdArchivo" text="ID Archivo"/>
+                            </header>
+                        </Column>
+                        <Column id="idWorkflow"  visible="false">
+                            <header>
+                                <Text id="textIdWorkflow" text="ID Workflow"/>
+                            </header>
+                        </Column>
+                        <Column id="nroFac">
+                            <header>
+                                <Text id="textNroFac" text="Número de Factura" textAlign="Center"/>
+                            </header>
+                        </Column>
+                        <Column id="colFecha">
+                            <header>
+                                <Text id="textFecha" text="Fecha" textAlign="Center"/>
+                            </header>
+                        </Column>
+                        <Column id="monto">
+                            <header>
+                                <Text id="textImporte" text="Importe" textAlign="Center"/>
+                            </header>
+                        </Column>
+                        <Column id="colEstado">
+                            <header>
+                                <Text id="textEstado" text="Estado" textAlign="Center"/>
+                            </header>
+                        </Column>
+                        <Column id="razon">
+                            <header>
+                                <Text id="textRazon" text="Motivo de rechazo" textAlign="Center"/>
+                            </header>
+                        </Column>
+                        <Column id="pdf">
+                            <header>
+                                <Text id="textPdf" text="Ver PDF" textAlign="Center"/>
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="columnItems">
+                            <cells>
+                                <Text id="celId" text="{ID}" visible="false" />
+                                <Text id="celConPo" text="{con_po}" visible="false" />
+                                <Text id="celCuit" text="{cuit}" visible="false" />
+                                <Text id="celIdArchivo" text="{id_archivo}"  visible="false"/>
+                                <Text id="celIdWorkflow" text="{id_workflow}" visible="false" />
+                                <Text id="cellNroFac" text="{punto_venta}{letra}{numero_comprobante}"/>
+                                <Text id="cellFecha" text="{fecha_emision}"/>
+                                <Text id="cellTotal" text="{
+                                    parts:['total',''],
+                                    type:'sap.ui.model.type.Currency',
+                                    formatOptions:{currencyCode: false}}"/>
+                                <ObjectStatus id="celStatus" text="{= ${estado} === 'S' ? 'Factura procesada' : ${estado} === 'W' ? 'Factura en proceso' : ${estado} === 'E' ? 'Factura rechazada' : 'Estado desconocido' }"
+                                              icon="{= ${estado} === 'S' ? 'sap-icon://accept' : ${estado} === 'W' ? 'sap-icon://status-in-process' : ${estado} === 'E' ? 'sap-icon://error' : '' }"
+                                              state="{= ${estado} === 'S' ? 'Success' : ${estado} === 'W' ? 'Warning' : ${estado} === 'E' ? 'Error' : 'None' }"
+                                              />
+                                <ObjectStatus id="celRazon" text="{= ${estado} === 'E' ? ${razon} : '' }" icon="{= ${estado} === 'W' ? 'sap-icon://less' : '' }{= ${estado} === 'S' ? 'sap-icon://less' : '' }"/>
+                                <Button id="verPdf" press="onShowPdfPress" 
+                                        icon="sap-icon://pdf-attachment" 
+                                        />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                <core:HTML id="idFrame"/>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>
